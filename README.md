@@ -163,7 +163,9 @@ Configure the Module level `build.gradle` and Project level `build.gradle` files
 7. Event Notifications service supports retrieval of individual notifications from the notification tray. For notifications accessed from the notification tray, you are provided with a handle only to the notification that is being clicked. All notifications are displayed when the application is opened normally. Update your `AndroidManifest.xml` file with the following snippet to use this functionality:
 	
 	```xml
-        <activity android:name="com.ibm.cloud.eventnotifications.destination.android.ENPushNotificationHandler" android:theme="@android:style/Theme.NoDisplay"/>
+        <activity 
+			android:name="com.ibm.cloud.eventnotifications.destination.android.ENPushNotificationHandler" 
+			android:theme="@android:style/Theme.NoDisplay"/>
         <service
 	```
 8. Add the `google-services.json` in Android application module root directory. For more information on how to add this file, see [Setup the SDK on FCM](https://cloud.ibm.com/docs/services/mobilepush?topic=mobile-pushnotification-push_step_3#push_step_3_Android).
@@ -284,7 +286,7 @@ enPush.unregister(new ENPushResponseListener<String>() {
 
 ### Subscribe to tags
 
-The `subscribe` API will subscribe the device for the list of given tags. After the device is subscribed to a particular tag, the device can receive notifications that are sent for that tag. 
+The `subscribe` API will subscribe the device for a given tag. After the device is subscribed to a particular tag, the device can receive notifications that are sent for that tag. 
 
 Add the following code snippet to your Android mobile application to subscribe to a list of tags.
 
@@ -399,11 +401,11 @@ The following notification options are supported.
 
                 showNotification(activity, message);
 
-                if (message.actionName.equals("Accept Button")){
+                if (message.getActionName().equals("Accept Button")){
                     System.out.print("Clicked Accept Action");
-                }else if (message.actionName.equals("Decline Button")){
+                }else if (message.getActionName().equals("Decline Button")){
                     System.out.print("Clicked Decline Action");
-                }else if (message.actionName.equals("View Button")){
+                }else if (message.getActionName().equals("View Button")){
                     System.out.print("Clicked View Action");
                 }
             
