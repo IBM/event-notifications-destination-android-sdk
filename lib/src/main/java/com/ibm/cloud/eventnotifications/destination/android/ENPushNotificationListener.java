@@ -16,6 +16,8 @@
 
 package com.ibm.cloud.eventnotifications.destination.android;
 
+/** This interface defines the listener methods used for Push notifications.
+ */
 public interface ENPushNotificationListener {
 
 	/**

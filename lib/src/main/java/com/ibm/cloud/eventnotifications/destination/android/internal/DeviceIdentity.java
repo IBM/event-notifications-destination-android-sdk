@@ -16,7 +16,9 @@
 
 package com.ibm.cloud.eventnotifications.destination.android.internal;
 
-
+/**
+ * Interface for the device, platform, os etc.
+ */
 public interface DeviceIdentity {
 	String ID = "id";
 	String OS = "platform";

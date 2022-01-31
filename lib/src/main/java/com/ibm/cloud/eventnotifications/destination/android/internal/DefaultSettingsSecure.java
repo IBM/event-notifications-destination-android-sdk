@@ -22,7 +22,15 @@ import android.provider.Settings;
 
 import java.util.UUID;
 
+/**
+ * Class for handling device specific methods.
+ */
 public class DefaultSettingsSecure implements SettingsSecureInterface {
+    /**
+     *
+     * @param context app context
+     * @return unique UUID for the device
+     */
     @Override
     public String getDeviceID(Context context) {
 
@@ -30,21 +38,37 @@ public class DefaultSettingsSecure implements SettingsSecureInterface {
         return UUID.nameUUIDFromBytes(uuid.getBytes()).toString();
     }
 
+    /**
+     *
+     * @return build version of the sdk.
+     */
     @Override
     public String getRelease() {
         return Build.VERSION.RELEASE;
     }
 
+    /**
+     *
+     * @return brand name
+     */
     @Override
     public String getBrand() {
         return Build.BRAND;
     }
 
+    /**
+     *
+     * @return model
+     */
     @Override
     public String getModel() {
         return Build.MODEL;
     }
 
+    /**
+     *
+     * @return os details.
+     */
     @Override
     public String getOs() {
         return "android";

@@ -18,6 +18,9 @@ package com.ibm.cloud.eventnotifications.destination.android.internal;
 
 import com.ibm.cloud.eventnotifications.destination.android.ENPush;
 
+/**
+ * Class for building the APIs for the network communication.
+ */
 public class ENPushUrlBuilder {
 
 	private static final String FORWARDSLASH = "/";
@@ -48,7 +51,11 @@ public class ENPushUrlBuilder {
 	String reWriteDomain = null;
 	private final StringBuilder pwUrl_ = new StringBuilder();
 
-	public ENPushUrlBuilder() {}
+	/**
+	 * Init method
+	 * @param instanceId appguid of the Event Notifications service
+	 * @param destinationId destinationId of the Event Notifications service
+	 */
 	public ENPushUrlBuilder(String instanceId, String destinationId) {
 		if (ENPush.overrideServerHost != null){
 			pwUrl_.append(ENPush.overrideServerHost);
@@ -79,14 +86,28 @@ public class ENPushUrlBuilder {
 		pwUrl_.append(FORWARDSLASH);
 	}
 
+	/**
+	 * Get the device url
+	 * @return device url
+	 */
 	public String getDevicesUrl() {
-		return getCollectionUrl(DEVICES).toString();
+		return getBaseUrl(DEVICES).toString();
 	}
 
+	/**
+	 * Get subscriptions url
+	 * @return subscriptions url
+	 */
 	public String getSubscriptionsUrl() {
-		return getCollectionUrl(SUBSCRIPTIONS).toString();
+		return getBaseUrl(SUBSCRIPTIONS).toString();
 	}
 
+	/**
+	 * Get subscriptions url
+	 * @param deviceId deviceId for the Event Notifications service
+	 * @param tagName tagName for the subscription
+	 * @return return subscriptions url
+	 */
 	public String getSubscriptionsUrl(String deviceId, String tagName) {
 		StringBuilder subscriptionsOfTagUrl = new StringBuilder(
 				getSubscriptionsUrl());
@@ -112,12 +133,22 @@ public class ENPushUrlBuilder {
 		return subscriptionsOfTagUrl.toString();
 	}
 
+	/**
+	 * Get device url.
+	 * @param deviceId deviceId for the Event Notifications service
+	 * @return return the device url.
+	 */
 	public String getDeviceIdUrl(String deviceId) {
 		StringBuilder deviceIdUrl = new StringBuilder(getDevicesUrl());
 		deviceIdUrl.append(FORWARDSLASH).append(deviceId);
 		return deviceIdUrl.toString();
 	}
 
+	/**
+	 * Get unregister url.
+	 * @param deviceId deviceId for the Event Notifications service
+	 * @return unregister url.
+	 */
 	public String getUnregisterUrl(String deviceId){
 		StringBuilder deviceUnregisterUrl = new StringBuilder(
 				getDevicesUrl());
@@ -126,13 +157,24 @@ public class ENPushUrlBuilder {
 
 		return deviceUnregisterUrl.toString();
 	}
+
+	/**
+	 * Get rewrite domain
+	 * @return rewrite domain url
+	 */
     public String getRewriteDomain(){
 
         return reWriteDomain;
     }
-	private StringBuilder getCollectionUrl(String collectionName) {
+
+	/**
+	 * Get the base url
+	 * @param base base name
+	 * @return base url
+	 */
+	private StringBuilder getBaseUrl(String base) {
 		StringBuilder collectionUrl = new StringBuilder(pwUrl_);
-		collectionUrl.append(collectionName);
+		collectionUrl.append(base);
 
 		return collectionUrl;
 	}

@@ -18,6 +18,9 @@ package com.ibm.cloud.eventnotifications.destination.android.internal;
 
 import android.content.Context;
 
+/**
+ * interface defining device specific methods.
+ */
 public interface SettingsSecureInterface {
     String getDeviceID(Context context);
     String getRelease();

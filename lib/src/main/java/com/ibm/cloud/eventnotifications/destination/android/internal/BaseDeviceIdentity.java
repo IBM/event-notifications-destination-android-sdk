@@ -17,14 +17,8 @@
 package com.ibm.cloud.eventnotifications.destination.android.internal;
 
 import android.content.Context;
-import android.os.Build;
-import android.provider.Settings;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * Holds the device identity json

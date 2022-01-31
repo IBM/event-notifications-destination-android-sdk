@@ -16,6 +16,9 @@
 
 package com.ibm.cloud.eventnotifications.destination.android.internal;
 
+/**
+ * SDK constant keys.
+ */
 public enum ENMessageKeys {
     IBM_PUSH_NOTIFICATION,
     CANCEL_IBM_PUSH_NOTIFICATION,

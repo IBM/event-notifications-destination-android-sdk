@@ -16,6 +16,9 @@
 
 package com.ibm.cloud.eventnotifications.destination.android.internal;
 
+/**
+ * Interface for getting the constants.
+ */
 public interface ENMessageConstantInterface {
-    public String getStringForKey(ENMessageKeys key);
+    String getStringForKey(ENMessageKeys key);
 }

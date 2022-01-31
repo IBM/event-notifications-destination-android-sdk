@@ -20,7 +20,9 @@ import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.WeakHashMap;
-
+/**
+ * Levels supported in this Logger class.
+ */
 public class Logger {
 
 
@@ -207,5 +209,5 @@ public class Logger {
 }
 
 interface LoggerInterface {
-    public void doLog(final String level, final String message, long timestamp, final Throwable t, JSONObject additionalMetadata);
+    void doLog(final String level, final String message, long timestamp, final Throwable t, JSONObject additionalMetadata);
 }

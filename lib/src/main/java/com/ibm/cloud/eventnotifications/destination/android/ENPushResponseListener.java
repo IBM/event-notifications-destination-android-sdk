@@ -19,7 +19,6 @@ package com.ibm.cloud.eventnotifications.destination.android;
 
 /** This interface defines the callback methods used for reporting the status of ENPush's async
  * methods.
- *
  */
 public interface ENPushResponseListener<T> {
 

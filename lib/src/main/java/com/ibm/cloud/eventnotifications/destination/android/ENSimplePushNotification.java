@@ -29,6 +29,13 @@ public class ENSimplePushNotification extends ENAbstractPushMessage implements E
 	private String payload;
     private String actionName = "";
 
+	/**
+	 * Init method
+	 * @param alert alert message
+	 * @param id message id
+	 * @param url message url
+	 * @param payload message payload object
+	 */
 	ENSimplePushNotification(String alert, String id,
 							 String url, String payload) {
 		super(alert, id);
@@ -36,6 +43,10 @@ public class ENSimplePushNotification extends ENAbstractPushMessage implements E
 		this.payload = payload;
 	}
 
+	/**
+	 * Init method using ENInternalPushMessage
+	 * @param message ENInternalPushMessage object
+	 */
 	ENSimplePushNotification(ENInternalPushMessage message) {
 		super(message);
 		this.url = message.getUrl();

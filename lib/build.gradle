@@ -52,6 +52,9 @@ android {
     lintOptions {
         abortOnError false
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -82,9 +85,14 @@ task generateSourcesJar(type: Jar) {
 }
 
 task generateJavadocs(type: Javadoc) {
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    android.libraryVariants.all { variant ->
+        if (variant.name == 'release') {
+            owner.classpath += variant.javaCompileProvider.get().classpath
+        }
+    }
     source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath()
-            .join(File.pathSeparator))
+    exclude '**/R.html', '**/R.*.html', '**/index.html', '**/BuildConfig*'
 }
 
 task generateJavadocsJar(type: Jar) {

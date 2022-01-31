@@ -15,10 +15,11 @@
  */
 package com.ibm.cloud.eventnotifications.destination.android.internal;
 
+/**
+ * An interface for Push Message. Contains basic methods for alert and message Id.
+ */
 public interface ENPushMessage {
-
-	public abstract String getId();
-
-	public abstract String getAlert();
+	String getId();
+	String getAlert();
 
 }

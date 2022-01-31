@@ -33,6 +33,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Class for creating the Android Notifications channel.
+ */
 public class ENInternalPushChannel {
 
     private static final String GROUP_CHANNEL_ID = "channelId";
@@ -66,6 +69,10 @@ public class ENInternalPushChannel {
 
     protected static Logger logger = Logger.getLogger(Logger.INTERNAL_PREFIX + ENInternalPushChannel.class.getSimpleName());
 
+    /**
+     * Convert the channel to string.
+     * @return string representation of the channel.
+     */
     @Override
     public String toString() {
         return "ENInternalPushChannel [channelId=" + channelId + ", channelName=" + channelName +
@@ -74,47 +81,178 @@ public class ENInternalPushChannel {
                 "groupJson="+groupJson+", bypassDND="+bypassDND+", description="+description+", showBadge="+showBadge+", " +
                 "vibrationPattern="+vibrationPattern+" ]";
     }
+
+    /**
+     * get channel id
+     * @return channel id
+     */
     public String getChannelId() {
         return channelId;
     }
+
+    /**
+     * get channel name
+     * @return channel name
+     */
     public String getChannelName() {
         return channelName;
     }
+
+    /**
+     * get channel importance
+     * @return channel importance
+     */
     public int getImportance() {
         return importance;
     }
+
+    /**
+     * get channel enable lights value
+     * @return channel enable lights value
+     */
     public boolean getEnableLights() {return enableLights;}
+
+    /**
+     * get channel enable vibration value
+     * @return channel enable vibration value
+     */
     public boolean getEnableVibration() {return enableVibration;}
+
+    /**
+     * get channel light color value
+     * @return channel light color value
+     */
     public String getLightColor() {return lightColor;}
+
+    /**
+     * get channel lock screen visibility
+     * @return channel lock screen visibility
+     */
     public int getLockScreenVisibility() {
         return lockScreenVisibility;
     }
+
+    /**
+     * get channel group json object
+     * @return channel group json object
+     */
     public JSONObject getGroupJson() { return groupJson;}
+
+    /**
+     * get channel bypass DND value
+     * @return channel bypass DND value
+     */
     public boolean getBypassDND() { return  bypassDND;}
+
+    /**
+     * get channel description value
+     * @return channel description value
+     */
     public String getDescription() { return description;}
+
+    /**
+     * get channel show badge value
+     * @return channel show badge value
+     */
     public boolean getShowBadge() {return showBadge;}
+
+    /**
+     * get channel sound value
+     * @return channel sound value
+     */
     public String getSound() { return sound;}
+
+    /**
+     * get channel vibration pattern value
+     * @return channel vibration pattern value
+     */
     public JSONArray getVibrationPattern() {return  vibrationPattern;}
 
 
+    /**
+     * Set channel id value
+     * @param channelId
+     */
     public void setChannelId(String channelId) {
         this.channelId = channelId;
     }
+
+    /**
+     * Set channel Name
+     * @param channelName
+     */
     public void setChannelName(String channelName) { this.channelName = channelName;}
+
+    /**
+     * Set channel importance value
+     * @param importance
+     */
     public void setImportance(int importance) { this.importance = importance;}
+
+    /**
+     * Set channel lights enable value
+     * @param enableLights
+     */
     public void setEnableLights(boolean enableLights) { this.enableLights = enableLights;}
+
+    /**
+     * Set channel vibration enable value
+     * @param enableVibration
+     */
     public void setEnableVibration(boolean enableVibration) { this.enableVibration = enableVibration;}
+
+    /**
+     * Set channel light color value
+     * @param lightColor
+     */
     public void setLightColor(String lightColor) { this.lightColor = lightColor;}
+
+    /**
+     * Set channel lock screen visibility value
+     * @param lockScreenVisibility
+     */
     public void setLockScreenVisibility(int lockScreenVisibility) { this.lockScreenVisibility = lockScreenVisibility;}
+
+    /**
+     * Set channel group json
+     * @param groupJson
+     */
     public void setGroupsJSON(JSONObject groupJson) { this.groupJson = groupJson;}
+
+    /**
+     * Set channel bypass DND value
+     * @param bypassDND
+     */
     public void setBypassDND(boolean bypassDND) { this.bypassDND = bypassDND;}
+
+    /**
+     * Set channel badge show boolean
+     * @param showBadge
+     */
     public void setShowBadge(boolean showBadge) { this.showBadge = showBadge;}
+
+    /**
+     * Set channel description value
+     * @param description
+     */
     public void setDescription(String description) { this.description = description;}
+
+    /**
+     * Set channel sound value
+     * @param sound
+     */
     public void setSound(String sound) { this.sound = sound;}
+
+    /**
+     * Set channel vibration pattern
+     * @param vibrationPattern
+     */
     public void setVibrationPattern(JSONArray vibrationPattern) { this.vibrationPattern = vibrationPattern;}
 
-
-
+    /**
+     * Init method
+     * @param json channel json
+     */
     public ENInternalPushChannel(JSONObject json) {
 
         try {
@@ -198,6 +336,10 @@ public class ENInternalPushChannel {
         }
     }
 
+    /**
+     * Get the channel group object
+     * @return  channel group object
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public NotificationChannelGroup getChannelGroup() {
 
@@ -210,6 +352,12 @@ public class ENInternalPushChannel {
         return null;
     }
 
+    /**
+     * Get the channel object
+     * @param context app context
+     * @param mNotificationManager NotificationManager object
+     * @return channel object
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public NotificationChannel getChannel(Context context, NotificationManager mNotificationManager) {
 
@@ -251,6 +399,11 @@ public class ENInternalPushChannel {
         return  mChannel;
     }
 
+    /**
+     * Construct the light colors for channel
+     * @param ledARGB color values
+     * @return return color value.
+     */
     private int getLightColor(String ledARGB) {
         if (ledARGB!=null && ledARGB.equalsIgnoreCase("black")) {
             return Color.BLACK;

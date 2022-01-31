@@ -84,6 +84,10 @@ public class ENInternalPushMessage implements Parcelable, ENPushMessage {
 
 	protected static Logger logger = Logger.getLogger(Logger.INTERNAL_PREFIX + ENInternalPushMessage.class.getSimpleName());
 
+	/**
+	 * Init method
+	 * @param intent intent object with value in extras.
+	 */
 	public ENInternalPushMessage(Intent intent) {
 
 		Bundle info = intent.getExtras();
@@ -117,6 +121,10 @@ public class ENInternalPushMessage implements Parcelable, ENPushMessage {
 		}
 	}
 
+	/**
+	 * Init method
+	 * @param source parcel with values of ENInternalPushMessage
+	 */
 	private ENInternalPushMessage(Parcel source) {
 		id = source.readString();
 		alert = source.readString();
@@ -146,6 +154,10 @@ public class ENInternalPushMessage implements Parcelable, ENPushMessage {
 		hasTemplate = source.readInt();
 	}
 
+	/**
+	 * Init method
+	 * @param json json object with ENInternalPushMessage values.
+	 */
 	public ENInternalPushMessage(JSONObject json) {
 		try {
 			alert = json.getString(GCM_EXTRA_ALERT);
@@ -243,6 +255,10 @@ public class ENInternalPushMessage implements Parcelable, ENPushMessage {
 		}
 	}
 
+	/**
+	 * Convert ENInternalPushMessage object to json
+	 * @return json of ENInternalPushMessage object
+	 */
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		try {
@@ -271,32 +287,61 @@ public class ENInternalPushMessage implements Parcelable, ENPushMessage {
 		return json;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ibm.mobile.services.push.IBMMessage#getAlert()
+	/**
+	 * Get alert of ENInternalPushMessage onject
+	 * @return alert value.
 	 */
 	@Override
 	public	String getAlert() {
 		return alert;
 	}
 
+	/**
+	 * Set ENInternalPushMessage alert value
+	 * @param alert alert value
+	 */
 	public void setAlert(String alert) {
 		this.alert = alert;
 	}
 
+	/**
+	 * Get Android Title of ENInternalPushMessage object
+	 * @return Android title value
+	 */
 	public  String getAndroidTitle() {
 		return androidTitle;
 	}
+
+	/**
+	 * Set ENInternalPushMessage object android title
+	 * @param androidTitle android title value
+	 */
 	public void  setAndroidTitle(String androidTitle) {
 		this.androidTitle = androidTitle;
 	}
 
+	/**
+	 * Get ENInternalPushMessage channel json
+	 * @return channel json
+	 */
 	public JSONObject getChannelJson() {
 		return channelJson;
 	}
+
+	/**
+	 * Set ENInternalPushMessage object channel json
+	 * @param channelJson channel json value.
+	 */
 	public void  setChannelJson(JSONObject channelJson) {
 		this.channelJson = channelJson;
 	}
 
+	/**
+	 * Get the NotificationChannel from ENInternalPushMessage object
+	 * @param context app context
+	 * @param mNotificationManager NotificationManager object
+	 * @return NotificationChannel object
+	 */
 	@RequiresApi(api = Build.VERSION_CODES.O)
 	public NotificationChannel getChannel(Context context, NotificationManager mNotificationManager) {
 

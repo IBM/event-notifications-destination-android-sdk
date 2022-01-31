@@ -63,6 +63,12 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
     public static ENResourceManagerInterface enResourceManager = new ENResourceManagerDefault();
     public static ENMessageNotifierInterface enMessageNotifier = new ENMessageNotifierDefault();
 
+    /**
+     * Build NotificationCompatBuilder object
+     * @param context app current context
+     * @param message ENInternalPushMessage object
+     * @return returns NotificationCompatBuilder object
+     */
     @Override
     public NotificationCompat.Builder buildNotificationCompatBuilder(Context context, ENInternalPushMessage message) {
 
@@ -92,6 +98,12 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
         return builder;
     }
 
+    /**
+     * Method to handle the FCM notifications
+     * @param context app current context
+     * @param notification Notification object
+     * @param notificationId notification ID
+     */
     @Override
     public void onUnhandled(Context context, ENInternalPushMessage notification, int notificationId) {
 
@@ -112,13 +124,24 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
             intent.putExtra(ENPushConstants.NOTIFICATIONID, message.getNotificationId());
 
             generateNotification(context, message.getAlert(),
-                    enResourceManager.getNotificationTitle(context, message.getAndroidTitle()), message.getAlert(),
+                    enResourceManager.getNotificationTitle(context, message.getAndroidTitle()),
                     enResourceManager.getCustomNotificationIcon(context, message.getIcon()), intent, enMessageManager.getNotificationSound(context, message), notificationId, message);
         }
     }
 
+    /**
+     * Generate notification when app is in the foreground
+     * @param context app current context
+     * @param alert message alert value
+     * @param title message title value
+     * @param icon message icon value
+     * @param intent intent for the message
+     * @param sound message sound value
+     * @param notificationId message notification ID
+     * @param message message object.
+     */
     @Override
-    public void generateNotification(Context context, String ticker, String title, String msg, int icon, Intent intent, String sound, int notificationId, ENInternalPushMessage message) {
+    public void generateNotification(Context context, String alert, String title, int icon, Intent intent, String sound, int notificationId, ENInternalPushMessage message) {
 
         int androidSDKVersion = Build.VERSION.SDK_INT;
         long when = System.currentTimeMillis();
@@ -141,7 +164,7 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
                 if (type != null && type.equalsIgnoreCase(ENPushConstants.PICTURE_NOTIFICATION)) {
                     Bitmap remote_picture = null;
                     NotificationCompat.BigPictureStyle notificationStyle = new NotificationCompat.BigPictureStyle();
-                    notificationStyle.setBigContentTitle(ticker);
+                    notificationStyle.setBigContentTitle(alert);
                     notificationStyle.setSummaryText(gcmStyleObject.getString(ENPushConstants.TITLE));
 
                     remote_picture = getBitMapBigPictureNotification(gcmStyleObject);
@@ -159,11 +182,11 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
                                             PendingIntent.FLAG_UPDATE_CURRENT))
                             .setDeleteIntent(deletePendingIntent)
                             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                            .setContentText(msg)
+                            .setContentText(alert)
                             .setStyle(notificationStyle);
                 } else if (type != null && type.equalsIgnoreCase(ENPushConstants.BIGTEXT_NOTIFICATION)) {
                     NotificationCompat.BigTextStyle notificationStyle = new NotificationCompat.BigTextStyle();
-                    notificationStyle.setBigContentTitle(ticker);
+                    notificationStyle.setBigContentTitle(alert);
                     notificationStyle.setSummaryText(gcmStyleObject.getString(ENPushConstants.TITLE));
                     notificationStyle.bigText(gcmStyleObject.getString(ENPushConstants.TEXT));
 
@@ -175,12 +198,12 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
                                             PendingIntent.FLAG_UPDATE_CURRENT))
                             .setDeleteIntent(deletePendingIntent)
                             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                            .setContentText(msg)
+                            .setContentText(alert)
                             .setStyle(notificationStyle);
 
                 } else if (type != null && type.equalsIgnoreCase(ENPushConstants.INBOX_NOTIFICATION)) {
                     NotificationCompat.InboxStyle notificationStyle = new NotificationCompat.InboxStyle();
-                    notificationStyle.setBigContentTitle(ticker);
+                    notificationStyle.setBigContentTitle(alert);
                     notificationStyle.setSummaryText(gcmStyleObject.getString(ENPushConstants.TITLE));
 
                     String lines = gcmStyleObject.getString(ENPushConstants.LINES).replaceAll("\\[", "").replaceAll("\\]", "");
@@ -199,7 +222,7 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
                                             PendingIntent.FLAG_UPDATE_CURRENT))
                             .setDeleteIntent(deletePendingIntent)
                             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                            .setContentText(msg)
+                            .setContentText(alert)
                             .setStyle(notificationStyle);
                 }
 
@@ -220,9 +243,9 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
                         .getActivity(context, notificationId, intent,
                                 PendingIntent.FLAG_UPDATE_CURRENT))
                         .setDeleteIntent(deletePendingIntent)
-                        .setSmallIcon(icon).setTicker(ticker).setWhen(when)
+                        .setSmallIcon(icon).setTicker(alert).setWhen(when)
                         .setAutoCancel(true).setContentTitle(title)
-                        .setContentText(msg).setSound(enResourceManager.getNotificationSoundUri(context, sound));
+                        .setContentText(alert).setSound(enResourceManager.getNotificationSoundUri(context, sound));
 
                 if (androidSDKVersion > 15) {
                     int priority = enMessageManager.getPriorityOfMessage(context, message);
@@ -252,7 +275,7 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
                         builder.setContentIntent(PendingIntent
                                 .getActivity(context, notificationId, intent,
                                         PendingIntent.FLAG_UPDATE_CURRENT))
-                                .setSmallIcon(icon).setTicker(ticker).setWhen(when)
+                                .setSmallIcon(icon).setTicker(alert).setWhen(when)
                                 .setAutoCancel(true).setContentTitle(title)
                                 .setContentText(message.getRedact()).setSound(enResourceManager.getNotificationSoundUri(context, sound));
 
@@ -264,7 +287,7 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
                     String setPriority = message.getPriority();
                     if (setPriority != null && setPriority.equalsIgnoreCase(ENPushConstants.PRIORITY_MAX)) {
                         //heads-up notification
-                        builder.setContentText(msg)
+                        builder.setContentText(alert)
                                 .setFullScreenIntent(PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT), true);
                         notification = builder.build();
                     }
@@ -274,9 +297,9 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
                 notification = builder.setContentIntent(PendingIntent
                         .getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
                         .setDeleteIntent(deletePendingIntent)
-                        .setSmallIcon(icon).setTicker(ticker).setWhen(when)
+                        .setSmallIcon(icon).setTicker(alert).setWhen(when)
                         .setAutoCancel(true).setContentTitle(title)
-                        .setContentText(msg).setSound(enResourceManager.getNotificationSoundUri(context, sound))
+                        .setContentText(alert).setSound(enResourceManager.getNotificationSoundUri(context, sound))
                         .build();
             }
 
@@ -289,7 +312,12 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
 
     }
 
-
+    /**
+     * Set the lights for Notification object.
+     * @param notification Notification object
+     * @param message ENInternalPushMessage object
+     * @return Notification object
+     */
     @Override
     public Notification setLights(Notification notification, ENInternalPushMessage message) {
         if (message.getLights() != null) {
@@ -340,6 +368,11 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
         return notification;
     }
 
+    /**
+     * Dismiss the Notification
+     * @param context app current context
+     * @param nid message ID
+     */
     @Override
     public void dismissNotification(Context context, String nid) {
         SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(ENPush.PREFS_NAME, Context.MODE_PRIVATE);
@@ -371,6 +404,11 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
         }
     }
 
+    /**
+     * Get the image from url
+     * @param gcmStyleObject JSONObject of FCM style.
+     * @return return bitmap of the image
+     */
     @Override
     public Bitmap getBitMapBigPictureNotification(JSONObject gcmStyleObject) {
 
@@ -384,6 +422,14 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
         return remote_picture;
     }
 
+    /**
+     * Set the Notification actions.
+     * @param context app current context
+     * @param intent Intent for the notification
+     * @param notificationId Message ID
+     * @param messageCategory Message category value
+     * @param mBuilder NotificationCompat.Builder object
+     */
     @Override
     public void setNotificationActions(Context context, Intent intent, int notificationId, String messageCategory, NotificationCompat.Builder mBuilder) {
 
@@ -406,6 +452,9 @@ class ENNotificationBuilderDefault implements ENNotificationBuilderInterface {
         }
     }
 
+    /**
+     * Class for fetching the image from url.
+     */
     class BitMapBigPictureNotificationDefault extends AsyncTask<String, Void, Bitmap> {
 
         protected Bitmap doInBackground(String... urls) {

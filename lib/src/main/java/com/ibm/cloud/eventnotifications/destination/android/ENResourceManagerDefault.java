@@ -34,6 +34,13 @@ public class ENResourceManagerDefault implements ENResourceManagerInterface {
     private static Logger logger = Logger.getLogger(Logger.INTERNAL_PREFIX + ENResourceManagerDefault.class.getSimpleName());
 
 
+    /**
+     * Get resource id for the custom icon
+     * @param context app context
+     * @param resourceCategory resource category value
+     * @param resourceName resource name
+     * @return return icon resource id
+     */
     public int getResourceIdForCustomIcon(Context context, String resourceCategory, String resourceName) {
         int resourceId = -1;
 
@@ -45,6 +52,13 @@ public class ENResourceManagerDefault implements ENResourceManagerInterface {
         return resourceId;
     }
 
+    /**
+     * Get the resource id for an object
+     * @param context app context
+     * @param resourceCategory resource category value
+     * @param resourceName resource name
+     * @return return icon resource id
+     */
     public int getResourceId(Context context, String resourceCategory, String resourceName) {
         int resourceId = -1;
         try {
@@ -55,6 +69,12 @@ public class ENResourceManagerDefault implements ENResourceManagerInterface {
         return resourceId;
     }
 
+    /**
+     * Get custom notification icon value
+     * @param context app context
+     * @param resourceName resource name
+     * @return return icon resource id
+     */
     public int getCustomNotificationIcon(Context context, String resourceName) {
         int resourceId = -1;
 
@@ -73,7 +93,12 @@ public class ENResourceManagerDefault implements ENResourceManagerInterface {
         }
         return resourceId;
     }
-
+    /**
+     * Get notification sound value
+     * @param context app context
+     * @param sound sound name
+     * @return return Uri of sound resource
+     */
     public Uri getNotificationSoundUri(Context context, String sound) {
         Uri uri = null;
 
@@ -98,6 +123,11 @@ public class ENResourceManagerDefault implements ENResourceManagerInterface {
         return uri;
     }
 
+    /**
+     * Get the application default title
+     * @param context app context
+     * @return return app title
+     */
     public String getNotificationDefaultTitle(Context context) {
         int notificationTitle = -1;
         try {
@@ -111,6 +141,12 @@ public class ENResourceManagerDefault implements ENResourceManagerInterface {
         return ENPushConstants.DEFAULT_CHANNEL_ID;
     }
 
+    /**
+     * Get notification title
+     * @param context app context
+     * @param title default title value
+     * @return return title
+     */
     public String getNotificationTitle(Context context, String title) {
         // Check if push_notification_title is defined, if not get the
         // application name

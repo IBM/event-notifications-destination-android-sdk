@@ -20,6 +20,9 @@ package com.ibm.cloud.eventnotifications.destination.android.internal;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Class for creating the Android Notifications channel group.
+ */
 public class ENInternalPushChannelGroup {
 
     private static final String CHANNEL_GROUP_ID = "groupId";
@@ -30,6 +33,10 @@ public class ENInternalPushChannelGroup {
 
     protected static Logger logger = Logger.getLogger(Logger.INTERNAL_PREFIX + ENInternalPushChannelGroup.class.getSimpleName());
 
+    /**
+     * Init method
+     * @param json group json object.
+     */
     public ENInternalPushChannelGroup(JSONObject json) {
 
         try {
@@ -44,6 +51,10 @@ public class ENInternalPushChannelGroup {
         }
     }
 
+    /**
+     * Method to convert the ENInternalPushChannelGroup to json
+     * @return JSONObject of ENInternalPushChannelGroup object
+     */
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         try {
@@ -55,23 +66,43 @@ public class ENInternalPushChannelGroup {
         return json;
     }
 
+    /**
+     * Method to convert the ENInternalPushChannelGroup to string
+     * @return string of ENInternalPushChannelGroup object
+     */
     @Override
     public String toString() {
         return "ENInternalPushChannelGroup [groupId=" + groupId + ", groupName=" + groupName + "]";
     }
 
+    /**
+     * Get channel group ID
+     * @return group id
+     */
     public String getGroupId() {
         return groupId;
     }
 
+    /**
+     * Set group id
+     * @param groupId
+     */
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
+    /**
+     * Get channel group name
+     * @return channel group name
+     */
     public String getChannelGroupName() {
         return groupName;
     }
 
+    /**
+     * Set channel group name
+     * @param groupName channel group name
+     */
     public void setChannelGroupName(String groupName) {
         this.groupName = groupName;
     }

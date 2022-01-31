@@ -16,25 +16,45 @@
 
 package com.ibm.cloud.eventnotifications.destination.android.internal;
 
+/**
+ * An abstract class for ENPushMessage. Contains basic methods for alert and message Id.
+ */
 public abstract class ENAbstractPushMessage implements ENPushMessage {
 
 	protected String alert;
 	protected String id;
 
+	/**
+	 * init method
+	 * @param alert alert message
+	 * @param id message id
+	 */
 	public ENAbstractPushMessage(String alert, String id) {
 		this.alert = alert;
 		this.id = id;
 	}
 
+	/**
+	 * init method
+	 * @param message ENInternalPushMessage object
+	 */
 	public ENAbstractPushMessage(ENInternalPushMessage message) {
 		this(message.getAlert(), message.getId());
 	}
 
+	/**
+	 *
+	 * @return alert string
+	 */
 	@Override
 	public String getAlert() {
 		return alert;
 	}
 
+	/**
+	 *
+	 * @return message id
+	 */
 	@Override
 	public String getId() {
 		return id;

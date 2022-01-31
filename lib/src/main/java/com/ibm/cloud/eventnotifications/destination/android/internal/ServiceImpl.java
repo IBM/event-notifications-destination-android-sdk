@@ -18,11 +18,9 @@ package com.ibm.cloud.eventnotifications.destination.android.internal;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.ibm.cloud.eventnotifications.destination.android.BuildConfig;
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
-import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
@@ -33,8 +31,6 @@ import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.Call;
 
 /**
  * A wrapper class consisting of methods that perform API request/response handling of the Event Notifications SDK
@@ -105,7 +101,7 @@ public class ServiceImpl extends BaseService implements NetworkInterface {
 
     private HashMap<String, String> getServiceHeaders() {
         HashMap<String, String> headers = new HashMap<>();
-        headers.put(HttpHeaders.USER_AGENT, BuildConfig.LIBRARY_PACKAGE_NAME+ "/" + BuildConfig.VERSION_NAME);
+        headers.put(HttpHeaders.USER_AGENT, ENPushConstants.LIBRARY_PACKAGE_NAME+ "/" + ENPushConstants.VERSION_NAME);
         headers.put(HttpHeaders.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON);
         return headers;
     }

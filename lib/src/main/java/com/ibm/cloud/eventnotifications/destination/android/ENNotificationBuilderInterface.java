@@ -35,8 +35,8 @@ interface ENNotificationBuilderInterface {
 
     void onUnhandled(Context context, ENInternalPushMessage notification, int notificationId);
     NotificationCompat.Builder buildNotificationCompatBuilder(Context context, ENInternalPushMessage message);
-    void generateNotification(Context context, String ticker,
-                              String title, String msg, int icon, Intent intent, String sound, int notificationId, ENInternalPushMessage message);
+    void generateNotification(Context context, String alert,
+                              String title, int icon, Intent intent, String sound, int notificationId, ENInternalPushMessage message);
 
     void dismissNotification(Context context, String nid);
     Notification setLights(Notification notification, ENInternalPushMessage message);

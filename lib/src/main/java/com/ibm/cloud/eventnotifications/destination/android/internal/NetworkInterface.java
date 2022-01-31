@@ -21,9 +21,12 @@ import com.ibm.cloud.sdk.core.http.ServiceCallback;
 
 import org.json.JSONObject;
 
-public interface NetworkInterface {
-    public ServiceCall getData(String url, ServiceCallback callback);
-    public ServiceCall delete(String url, ServiceCallback callback);
-    public ServiceCall postData(String url, JSONObject data, ServiceCallback callback);
-    public ServiceCall putData(String url, JSONObject data, ServiceCallback callback);
+/**
+ * Interface for handling API service.
+ */
+interface NetworkInterface {
+    ServiceCall getData(String url, ServiceCallback callback);
+    ServiceCall delete(String url, ServiceCallback callback);
+    ServiceCall postData(String url, JSONObject data, ServiceCallback callback);
+    ServiceCall putData(String url, JSONObject data, ServiceCallback callback);
 }

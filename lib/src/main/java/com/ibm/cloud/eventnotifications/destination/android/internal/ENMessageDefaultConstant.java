@@ -17,8 +17,16 @@
 package com.ibm.cloud.eventnotifications.destination.android.internal;
 
 
+/**
+ * Class implementing ENMessageConstantInterface for getting the default constants.
+ */
 public class ENMessageDefaultConstant implements ENMessageConstantInterface {
 
+    /**
+     * Get string values for the constants.
+     * @param key key for the constant.
+     * @return string value for the key.
+     */
     @Override
     public String getStringForKey(ENMessageKeys key) {
 

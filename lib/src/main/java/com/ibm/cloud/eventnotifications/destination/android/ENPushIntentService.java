@@ -85,6 +85,10 @@ public class ENPushIntentService extends FirebaseMessagingService {
         return null;
     }
 
+    /**
+     * Method to receive FCM notifications
+     * @param message FCM notifications object.
+     */
     @Override
     public void onMessageReceived(RemoteMessage message) {
         String from = message.getFrom();
@@ -94,6 +98,11 @@ public class ENPushIntentService extends FirebaseMessagingService {
         onNotificationReceived(data, notificationId);
     }
 
+    /**
+     * Method for processing the FCM RemoteMessage
+     * @param data data from RemoteMessage
+     * @param notificationId RemoteMessage id
+     */
     public void onNotificationReceived(Map<String, String> data, int notificationId) {
 
         JSONObject dataPayload = new JSONObject(data);

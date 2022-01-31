@@ -30,14 +30,29 @@ import com.ibm.cloud.eventnotifications.destination.android.ENPush;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * Utils class for resource and storage actions.
+ */
 public class ENPushUtils extends Activity {
 
 	private static final String LOG_CAT = ENPush.class.getName();
 
+	/**
+	 * Get package name
+	 * @param context app context
+	 * @return package name
+	 */
 	public static String getIntentPrefix(Context context) {
 		return context.getPackageName();
 	}
 
+	/**
+	 * Get the resource id
+	 * @param context app context
+	 * @param resourceCategory resource category
+	 * @param resourceName resource name
+	 * @return resource id
+	 */
 	public static int getResourceId(Context context, String resourceCategory,
 			String resourceName) {
 		int resourceId = -1;
@@ -60,21 +75,12 @@ public class ENPushUtils extends Activity {
 	}
 
 	/**
-	 * I see that android fails on some occasions when need to log and the msg
-	 * is null
-	 *
-	 * @param msg
-	 *            original message
-	 * @return "null" if null, else returns original message
+	 * Get value from shared preferences
+	 * @param appContext app context
+	 * @param applicationId application guid of Event Notifications
+	 * @param valueType Key for the shared preferences
+	 * @return value from the shared preferences
 	 */
-	private static String getMsgNotNull(String msg) {
-		if (msg == null) {
-			return "null";
-		}
-
-		return msg;
-	}
-
 	public static String getContentFromSharedPreferences(Context appContext,
 			String applicationId, String valueType) {
 		SharedPreferences sharedPreferences = appContext.getSharedPreferences(
@@ -82,12 +88,25 @@ public class ENPushUtils extends Activity {
 		return sharedPreferences.getString(applicationId + valueType, null);
 	}
 
+	/**
+	 * Get value from the shared preferences
+	 * @param appContext app context
+	 * @param valueType Key for the shared preferences
+	 * @return value from the shared preferences
+	 */
 	public static String getContentFromSharedPreferences(Context appContext, String valueType) {
 		SharedPreferences sharedPreferences = appContext.getSharedPreferences(
 				ENPush.PREFS_NAME, 0);
 		return sharedPreferences.getString(valueType, null);
 	}
 
+	/**
+	 * Store value to shared preferences
+	 * @param appContext app context
+	 * @param applicationId application guid of Event Notifications
+	 * @param valueType Key for the shared preferences
+	 * @param value Value to store in the shared preferences
+	 */
 	public static void storeContentInSharedPreferences(Context appContext,
 			String applicationId, String valueType, String value) {
 		SharedPreferences sharedPreferences = appContext.getSharedPreferences(
@@ -97,7 +116,11 @@ public class ENPushUtils extends Activity {
 		editor.commit();
 	}
 
-	// Remove the key from SharedPreferences
+	/**
+	 * Remove value form shared preferences
+	 * @param sharedPreferences shared preferences
+	 * @param key Key for the shared preferences
+	 */
 	public static void removeContentFromSharedPreferences(SharedPreferences sharedPreferences, String key ) {
 
 		Editor editor = sharedPreferences.edit();
