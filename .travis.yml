@@ -1,12 +1,11 @@
 language: android
+dist: trusty
 sudo: required
 jdk: openjdk11
 android:
   components:
     - tools
     - platform-tools
-    - build-tools-30.0.2
-    - android-30
     - extra
     - extra-android-m2repository
     - extra-google-m2repository
@@ -15,21 +14,25 @@ android:
     - '.+'
     - android-sdk-license-.+
     - google-gdk-license-.+
-env:
-  global:
-  - END_TASK=""
-before_script:
-  - touch $HOME/.android/repositories.cfg
-   # Android API Level 30
-  - echo yes | sdkmanager "platforms;android-30"
-  - echo yes | sdkmanager "build-tools;30.0.2"
-   # Android API Level 31
-#   - echo yes | sdkmanager "tools"
-#   - echo yes | sdkmanager "platforms;android-28" # Latest platform required by SDK tools
-#   - echo yes | sdkmanager "extras;android;m2repository"
-#   - echo yes | sdkmanager "extras;google;m2repository"
-#   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-#   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+
+before_install:
   - chmod +x gradlew
+  - touch $HOME/.android/repositories.cfg
+  - yes | sdkmanager "platforms;android-30"
+  - yes | sdkmanager "build-tools;30.0.2"
+
+before_cache:
+   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+   
+cache:
+   directories:
+      - $HOME/.gradle/caches/
+      - $HOME/.gradle/wrapper/
+      - $HOME/.android/build-cache
+
+before_script:
+  - chmod +x gradlew
+
 script:
   - ./gradlew clean assemble test
