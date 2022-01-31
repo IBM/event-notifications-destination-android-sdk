@@ -21,8 +21,8 @@ env:
 before_script:
   - touch $HOME/.android/repositories.cfg
    # Android API Level 30
-#   - yes | sdkmanager "platforms;android-30"
-#   - yes | sdkmanager "build-tools;30.0.2"
+  - echo yes | sdkmanager "platforms;android-30"
+  - echo yes | sdkmanager "build-tools;30.0.2"
    # Android API Level 31
 #   - echo yes | sdkmanager "tools"
 #   - echo yes | sdkmanager "platforms;android-28" # Latest platform required by SDK tools
