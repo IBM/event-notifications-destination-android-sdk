@@ -23,8 +23,8 @@ before_script:
 #   - echo yes | sdkmanager "platforms;android-28" # Latest platform required by SDK tools
 #   - echo yes | sdkmanager "extras;android;m2repository"
 #   - echo yes | sdkmanager "extras;google;m2repository"
-  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+#   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+#   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
   - chmod +x gradlew
 script:
   - ./gradlew clean assemble test
