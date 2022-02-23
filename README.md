@@ -130,17 +130,7 @@ Configure the Module level `build.gradle` and Project level `build.gradle` files
 	 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 	 <uses-permission android:name="android.permission.WAKE_LOCK" />
 	 ```
-5. Add the notification intent settings for the activity. This setting starts the application when the user clicks the received notification from the notification area.
-
-	```xml
-        <intent-filter>
-                <action android:name="{Your_Android_Package_Name}.IBMPushNotification"/>
-                <category  android:name="android.intent.category.DEFAULT"/>
-	</intent-filter>
-	```
-	>**Note**: Replace `Your_Android_Package_Name` in the previous action with the application package name used in your application.
-
-6. Add the `Firebase Cloud Messaging (FCM)` intent service filters for the `REGISTRATION`  event notifications:
+5. Add the `Firebase Cloud Messaging (FCM)` intent service filters for the `REGISTRATION`  event notifications:
 
 	```xml
         <service android:name="com.ibm.cloud.eventnotifications.destination.android.ENPush" android:exported="true" >
@@ -150,7 +140,7 @@ Configure the Module level `build.gradle` and Project level `build.gradle` files
         </service>
 	```
 
-7. Add the `google-services.json` in Android application module root directory. For more information on how to add this file, see [Setup the SDK on FCM](https://cloud.ibm.com/docs/services/mobilepush?topic=mobile-pushnotification-push_step_3#push_step_3_Android).
+6. Add the `google-services.json` in Android application module root directory. For more information on how to add this file, see [Setup the SDK on FCM](https://cloud.ibm.com/docs/services/mobilepush?topic=mobile-pushnotification-push_step_3#push_step_3_Android).
 
 
 ### Initialize SDK
