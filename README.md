@@ -159,7 +159,10 @@ enPush.setCloudRegion(ENPush.REGION_US_SOUTH); // Set your region
 enPush.initialize(getApplicationContext(),instanceGUID,destinationID, apiKey);
 ```
 - region : Region of the Event Notifications Instance.
-- `ENPush.REGION_GERMANY`
+- `ENPush.REGION_US_SOUTH`
+- `ENPush.REGION_UK`
+- `ENPush.REGION_SYDNEY`
+
 
 ## Register for notifications
 
