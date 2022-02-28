@@ -27,40 +27,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Notification Intent -->
-            <intent-filter>
-                <action android:name="com.ibm.cloud.app.IBMPushNotification" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <!-- Push Settings End -->
-
         </activity>
 
-        <receiver android:name="com.ibm.cloud.eventnotifications.destination.android.ENPushNotificationDismissHandler">
-            <intent-filter>
-                <action android:name="com.ibm.cloud.app.Cancel_IBMPushNotification"/>
-            </intent-filter>
-        </receiver>
-
-        <activity android:name="com.ibm.cloud.eventnotifications.destination.android.ENPushNotificationHandler"
-            android:theme="@android:style/Theme.NoDisplay"/>
 
         <service
-            android:name="com.ibm.cloud.eventnotifications.destination.android.ENPushIntentService"
+            android:name="com.ibm.cloud.app.CustomFCMMessageHandler"
             android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <!--<service-->
-        <!--android:name=".MessageIntentService"-->
-        <!--android:exported="true" >-->
-        <!--<intent-filter>-->
-        <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-        <!--</intent-filter>-->
-        <!--</service>-->
 
         <service
             android:name="com.ibm.cloud.eventnotifications.destination.android.ENPush"

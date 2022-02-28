@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -14,14 +18,8 @@ import android.widget.TextView;
 
 import com.ibm.cloud.eventnotifications.destination.android.ENPush;
 import com.ibm.cloud.eventnotifications.destination.android.ENPushException;
-import com.ibm.cloud.eventnotifications.destination.android.ENPushNotificationButton;
-import com.ibm.cloud.eventnotifications.destination.android.ENPushNotificationCategory;
-import com.ibm.cloud.eventnotifications.destination.android.ENPushNotificationListener;
-import com.ibm.cloud.eventnotifications.destination.android.ENPushNotificationOptions;
 import com.ibm.cloud.eventnotifications.destination.android.ENPushResponseListener;
-import com.ibm.cloud.eventnotifications.destination.android.ENSimplePushNotification;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -36,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressBar loading_spinner = null;
 
     private ENPush enPush = null;
-    private ENPushNotificationListener notificationListener = null;
 
     private List<String> subscribedTags;
     private String tagName = "Tech_IBM";
@@ -75,39 +72,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         enPush.initialize(getApplicationContext(),instanceGUID,destinationID, apiKey);
 
-
         final Activity activity = this;
 
-
-        notificationListener = new ENPushNotificationListener() {
-
+        registerReceiver(new BroadcastReceiver() {
             @Override
-            public void onReceive(final ENSimplePushNotification message) {
-
+            public void onReceive(Context context, Intent intent) {
+                String message = intent.getStringExtra("FCM_Message_Extras");
                 showNotification(activity, message);
-
-                if (message.getActionName() == null){
-                    return;
-                }
-
-                if (message.getActionName().equals("Accept Button")){
-                    System.out.print("Clicked Accept Action");
-                }else if (message.getActionName().equals("Decline Button")){
-                    System.out.print("Clicked Decline Action");
-                }else if (message.getActionName().equals("View Button")){
-                    System.out.print("Clicked View Action");
-                }
-
             }
-        };
+        }, new IntentFilter("FCM_Message"));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (enPush != null) {
-            enPush.listen(notificationListener);
-        }
     }
     private void regForPush() {
         updateTextView("Registering the device.");
@@ -240,10 +218,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-
-    void showNotification(Activity activity, ENSimplePushNotification message) {
+    void showNotification(Activity activity, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setMessage("Notification Received : " + message.getAlert());
+        builder.setMessage("Notification Received : " + message);
         builder.setCancelable(true);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -271,12 +248,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-
         if (enPush != null) {
             enPush.hold();
         }
-
     }
-
-
 }
