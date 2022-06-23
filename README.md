@@ -5,9 +5,6 @@
 # Android destination SDK for IBM Cloud Event Notifications service Version 0.0.1
 Android destination client library to interact with various [IBM Cloud Event Notifications Service](https://cloud.ibm.com/apidocs?category=event-notifications).
 
-Disclaimer: this SDK is being released initially as a **pre-release** version.
-Changes might occur which impact applications that use this SDK.
-
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
@@ -72,8 +69,8 @@ SDK Methods to consume
 	- [Retrieve subscribed tags](#retrieve-subscribed-tags)
 	- [Unsubscribe from tags](#unsubscribe-from-tags)
 - [Notification options](#notification-options)
-	- [Adding custom DeviceId for registration](#adding-custom-deviceid-for-registration)
-
+    - [Adding custom DeviceId for registration](#adding-custom-deviceid-for-registration)
+    - [Sending Delivery Status for notifications](#sending-delivery-status-for-notifications)
 ## Installation
 
 ### Include SDK with Gradle
@@ -309,6 +306,19 @@ To send `DeviceId` use the `setDeviceId` method of `ENPushNotificationOptions` c
 
 >**Note**: Remember to keep custom DeviceId `unique` for each device.
 
+### Sending Delivery Status for notifications
+
+You can send notification status (SEEN/OPEN) back to Event Notifiation service, implement sendStatusEvent function to use this.
+
+Based on when notification was received by intercepting the notification, you can send back SEEN and when its opened you can send back OPEN.
+
+To use this function example is given below
+
+For status open -
+ENPush.getInstance().sendStatusEvent("en_nid", ENStatus.OPEN, listener);
+
+For status seen -
+ENPush.getInstance().sendStatusEvent("en_nid", ENStatus.SEEN, listener);
 
 ## Multidex support prior to Android 5.0
 Versions of the platform prior to Android 5.0 (API level 21) use the Dalvik runtime for executing app code.

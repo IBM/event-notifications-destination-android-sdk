@@ -38,6 +38,7 @@ import com.ibm.cloud.eventnotifications.destination.android.internal.ENInternalP
 import com.ibm.cloud.eventnotifications.destination.android.internal.ENPushConstants;
 import com.ibm.cloud.eventnotifications.destination.android.internal.ENPushUrlBuilder;
 import com.ibm.cloud.eventnotifications.destination.android.internal.ENPushUtils;
+import com.ibm.cloud.eventnotifications.destination.android.internal.ENStatus;
 import com.ibm.cloud.eventnotifications.destination.android.internal.Logger;
 import com.ibm.cloud.eventnotifications.destination.android.internal.BaseDeviceIdentity;
 import com.ibm.cloud.eventnotifications.destination.android.internal.ServiceImpl;
@@ -60,7 +61,6 @@ import java.util.Map;
 * <class>ENPush</class> provides methods required by an android application to
 * be able to receive Event Notifications push notifications.
 */
-
 public class ENPush extends FirebaseMessagingService{
 
   public final static String REGION_US_SOUTH = "us-south";
@@ -170,6 +170,11 @@ public class ENPush extends FirebaseMessagingService{
           this.regId = options.getDeviceid();
         }
         deviceIdentity = new BaseDeviceIdentity(context);
+        SharedPreferences sharedPreferences = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        ENPushUtils.storeContentInSharedPreferences(sharedPreferences, "instanceId", guid);
+        ENPushUtils.storeContentInSharedPreferences(sharedPreferences, "destinationId", destinationID);
+        ENPushUtils.storeContentInSharedPreferences(sharedPreferences, "apiKey", apikey);
+        ENPushUtils.storeContentInSharedPreferences(sharedPreferences, "isInitialized", "true");
       } else {
         logger.error("ENPush:initialize() - An error occured while initializing ENPush service. Add a valid ClientSecret and Event Notifications service instance ID Value");
         throw new ENPushException("ENPush:initialize() - An error occured while initializing ENPush service. Add a valid ClientSecret and Event Notifications service instance ID Value", INITIALISATION_ERROR);
@@ -656,6 +661,64 @@ public class ENPush extends FirebaseMessagingService{
     if (regId == null && deviceIdentity != null) {
       regId = deviceIdentity.getId();
       logger.debug("ENPush:computeRegId() - DeviceId obtained from AuthorizationManager is : " + regId);
+    }
+  }
+
+  public void sendStatusEvent(String notificationId, ENStatus status, ENPushResponseListener<String> listener){
+    String isInitialized = ENPushUtils.getContentFromSharedPreferences(appContext.getApplicationContext(), "isInitialized");
+    if("true".equals(isInitialized)) {
+        String instanceId = ENPushUtils.getContentFromSharedPreferences(appContext.getApplicationContext(), "instanceId");
+        String destinationId = ENPushUtils.getContentFromSharedPreferences(appContext.getApplicationContext(), "destinationId");
+        String regId = ENPushUtils.getContentFromSharedPreferences(appContext.getApplicationContext(), instanceId + destinationId + ENPushConstants.DEVICE_ID);
+        this.apiKey = ENPushUtils.getContentFromSharedPreferences(appContext.getApplicationContext(), "apiKey");
+
+        ENPushUrlBuilder builder = new ENPushUrlBuilder(instanceId, destinationId);
+        String path = builder.getStatusUrl(regId);
+        JSONObject data = new JSONObject();
+        try {
+          data.put(ENPushConstants.NOTIFICATION_ID, notificationId);
+          data.put(ENPushConstants.STATUS, status);
+          data.put(ENPushConstants.PLATFORM, "G");
+        } catch (JSONException e) {
+          logger.error("ENPush: sendStatusEvent() - Error while building JSON object.");
+          listener.onFailure(new ENPushException(e));
+          return;
+        }
+
+        ServiceCall call =
+                this.getServiceImplementation().postData(path, data, new ServiceCallback() {
+                  @Override
+                  public void onResponse(Response response) {
+                    try {
+                      logger.info("sending status event is successful" + response.getStatusCode());
+                      if(listener == null){
+                        return;
+                      }
+                      listener.onSuccess(response.toString());
+                    } catch (Exception e) {
+                      logger.error("ENPush:sendStatusEvent() - Exception caught while parsing JSON response.");
+                      if(listener == null){
+                        return;
+                      }
+                      listener.onFailure(new ENPushException(e));
+                    }
+                  }
+
+                  @Override
+                  public void onFailure(Exception e) {
+                    logger.error("ENPush:sendSeenEvent() - Failure");
+                    if(listener == null){
+                      return;
+                    }
+                    listener.onFailure(new ENPushException(e));
+                  }
+                });
+    }else {
+      logger.error("ENPush:sendStatusEvent() - Error while sending status -. Not initialized ENPush");
+      if(listener == null){
+        return;
+      }
+      listener.onFailure(new ENPushException("ENPush:sendStatusEvent() - Error while sending status -. Not initialized ENPush"));
     }
   }
 
