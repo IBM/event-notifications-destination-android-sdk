@@ -315,10 +315,14 @@ Based on when notification was received by intercepting the notification, you ca
 To use this function example is given below
 
 For status open -
+```java
 ENPush.getInstance().sendStatusEvent("en_nid", ENStatus.OPEN, listener);
+```
 
 For status seen -
+```java
 ENPush.getInstance().sendStatusEvent("en_nid", ENStatus.SEEN, listener);
+```
 
 ## Multidex support prior to Android 5.0
 Versions of the platform prior to Android 5.0 (API level 21) use the Dalvik runtime for executing app code.
