@@ -28,6 +28,7 @@ public class ENPushUrlBuilder {
 	private static final String V1 = "v1";
 	private static final String INSTANCES = "instances";
 	private static final String DESTINATIONS = "destinations";
+	private static final String DELIVERY = "delivery";
 
 	private static final String AMPERSAND = "&";
 	private static final String QUESTIONMARK = "?";
@@ -142,6 +143,12 @@ public class ENPushUrlBuilder {
 		StringBuilder deviceIdUrl = new StringBuilder(getDevicesUrl());
 		deviceIdUrl.append(FORWARDSLASH).append(deviceId);
 		return deviceIdUrl.toString();
+	}
+
+	public String getStatusUrl(String deviceId) {
+		StringBuilder statusUrl = new StringBuilder(getDeviceIdUrl(deviceId));
+		statusUrl.append(FORWARDSLASH).append(DELIVERY);
+		return statusUrl.toString();
 	}
 
 	/**

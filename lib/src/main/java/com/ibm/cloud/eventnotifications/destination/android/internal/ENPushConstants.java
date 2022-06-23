@@ -43,6 +43,7 @@ public interface ENPushConstants {
 	String VISIBILITY_SECRET = "secret";
 	String DISMISS_NOTIFICATION = "com.ibm.cloud.eventnotifications.destination.android.sdk.DISMISS_NOTIFICATION";
 	String NOTIFICATIONID = "notificationId";
+	String NOTIFICATION_ID= "notification_id";
 	String URL = "url";
 	String TITLE = "title";
 	String TYPE = "type";
