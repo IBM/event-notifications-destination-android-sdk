@@ -352,7 +352,7 @@ A
 <application 
     android:name="android.support.multidex.MultiDexApplication"
 ```
-## FAQ
+## Troubleshooting
 Application crashes when register a device on android v6.0
 
 Fix:
