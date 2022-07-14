@@ -111,7 +111,7 @@ Configure the Module level `build.gradle` and Project level `build.gradle` files
         .......
 	}
 	```
-	>**Note**: Use the latest build tools (API 26).
+	>**Note**: Use the latest build tools (API 33). The minimum support version of android SDK is Android 5.1(API Level 22).
 
 
 3. Add the `Google Play services` dependency to your Module level `build.gradle` file at the end, after the `dependencies{.....}`:
