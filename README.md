@@ -352,7 +352,21 @@ A
 <application 
     android:name="android.support.multidex.MultiDexApplication"
 ```
+## FAQ
+Application crashes when register a device on android v6.0
 
+Fix:
+Issue is in Android 6 and it is version specific.
+Please update the build.gradle file under app with below code.
+```groovy
+dependencies {
+	........
+	implementation('com.google.guava:guava') {
+		version { strictly '29.0-android' }
+	}
+	........
+}
+```
 
 ## Questions
 
