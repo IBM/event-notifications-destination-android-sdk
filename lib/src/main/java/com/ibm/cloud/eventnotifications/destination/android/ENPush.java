@@ -67,6 +67,7 @@ public class ENPush extends FirebaseMessagingService{
   public final static String REGION_UK = "eu-gb";
   public final static String REGION_SYDNEY = "au-syd";
   public final static String REGION_FRANKFURT = "eu-de";
+  public final static String REGION_MADRID = "eu-es";
 
   public static final String PREFS_NAME = "com.ibm.cloud.eventnotifications.destination.android";
   static final String PREFS_NOTIFICATION_MSG = "LatestNotificationMsg";
@@ -108,6 +109,7 @@ public class ENPush extends FirebaseMessagingService{
   private ENInternalPushMessage messageFromBar = null;
   private Intent pushNotificationIntent = null;
   protected static Logger logger = Logger.getLogger(Logger.INTERNAL_PREFIX + ENPush.class.getSimpleName());
+  private boolean isPrivateEndPoint= false;
   public static String overrideServerHost = null;
 
   private JSONObject templateJson = new JSONObject();
@@ -126,6 +128,13 @@ public class ENPush extends FirebaseMessagingService{
    */
   public String getCloudRegionSuffix(){ return region;}
 
+  public void usePrivateEndpoint(boolean isPrivateEndPoint){
+    this.isPrivateEndPoint = isPrivateEndPoint;
+  }
+
+  public boolean getIsPrivateEndPoint(){
+    return this.isPrivateEndPoint;
+  }
 
   public void setCloudRegion( String region){ this.region = region;}
 

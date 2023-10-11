@@ -85,7 +85,7 @@ public class ServiceImpl extends BaseService implements NetworkInterface {
     }
 
     private static IamAuthenticator createIamAuth() {
-        if (overrideServerHost != null) {
+        if (overrideServerHost != null && !overrideServerHost.contains("https://private")) {
             iamAuthenticator = new IamAuthenticator.Builder().
             url(ENPushUrlBuilder.HTTPS_SCHEME + DEFAULT_IAM_DEV_STAGE_URL).
             apikey(apikey).
