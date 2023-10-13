@@ -160,6 +160,7 @@ enPush.initialize(getApplicationContext(),instanceGUID,destinationID, apiKey);
 - `ENPush.REGION_UK`
 - `ENPush.REGION_SYDNEY`
 - `ENPush.REGION_FRANKFURT`
+- `ENPush.REGION_MADRID`
 
 
 ## Register for notifications
