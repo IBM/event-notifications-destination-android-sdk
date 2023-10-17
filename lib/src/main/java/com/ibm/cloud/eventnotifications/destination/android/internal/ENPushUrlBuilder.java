@@ -46,6 +46,7 @@ public class ENPushUrlBuilder {
 	public final static String HTTPS_SCHEME = "https://";
 
 	private String defaultProtocol = HTTPS_SCHEME;
+	private static final String PRIVATE = "private";
 
 
 
@@ -63,6 +64,10 @@ public class ENPushUrlBuilder {
 			reWriteDomain = ENPush.overrideServerHost;
 		} else {
 			pwUrl_.append(defaultProtocol);
+			if(ENPush.getInstance().getIsPrivateEndPoint()){
+				pwUrl_.append(PRIVATE);
+				pwUrl_.append(".");
+			}
 			String region = ENPush.getInstance().getCloudRegionSuffix();
 			pwUrl_.append(region);
 			pwUrl_.append(".");
