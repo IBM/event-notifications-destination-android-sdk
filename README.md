@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.com/IBM/event-notifications-destination-android-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=main)](https://travis-ci.com/IBM/event-notifications-destination-android-sdk)
 
 
-# Android destination SDK for IBM Cloud Event Notifications service Version 0.0.1
+# Android destination SDK for IBM Cloud Event Notifications service Version 0.2.0
 Android destination client library to interact with various [IBM Cloud Event Notifications Service](https://cloud.ibm.com/apidocs?category=event-notifications).
 
 ## Table of Contents
@@ -25,7 +25,7 @@ The IBM Cloud Event Notifications Service Android destination SDK allows develop
 
 Service Name | Artifact Coordinates
 --- | ---
-[Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:eventnotifications-destination-android:0.0.1
+[Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:eventnotifications-destination-android:0.2.0
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ Service Name | Artifact Coordinates
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
 
 ## Installation
-The current version of this SDK is: 0.0.1
+The current version of this SDK is: 0.2.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -50,7 +50,7 @@ To use the Event Notifications Android destination SDK, define a dependency that
 
 ### Gradle
 ```gradle
-compile 'com.ibm.cloud:eventnotifications-destination-android:0.0.1'
+compile 'com.ibm.cloud:eventnotifications-destination-android:0.2.0'
 ```
 
 ## Using the SDK
@@ -107,7 +107,7 @@ Configure the Module level `build.gradle` and Project level `build.gradle` files
         implementation 'com.google.firebase:firebase-messaging'
         implementation 'com.ibm.cloud:sdk-core:9.15.0'
 
-        implementation 'com.ibm.cloud:eventnotifications-destination-android:0.0.1'
+        implementation 'com.ibm.cloud:eventnotifications-destination-android:0.2.0'
         .......
 	}
 	```
@@ -161,6 +161,7 @@ enPush.initialize(getApplicationContext(),instanceGUID,destinationID, apiKey);
 - `ENPush.REGION_SYDNEY`
 - `ENPush.REGION_FRANKFURT`
 - `ENPush.REGION_MADRID`
+- `ENPush.REGION_BNPP`
 
 
 ## Register for notifications
