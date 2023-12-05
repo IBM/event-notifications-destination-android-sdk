@@ -15,8 +15,8 @@ android {
         minSdk 22
         targetSdk 31
         versionCode 1
-        versionName "0.0.1"
-        buildConfigField 'String', 'VERSION_NAME', "\"0.0.1\""
+        versionName "0.2.0"
+        buildConfigField 'String', 'VERSION_NAME', "\"0.2.0\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
