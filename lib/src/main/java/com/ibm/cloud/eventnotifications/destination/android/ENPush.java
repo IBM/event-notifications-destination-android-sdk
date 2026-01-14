@@ -74,6 +74,7 @@ public class ENPush extends FirebaseMessagingService{
   public final static String REGION_TORONTO = "ca-tor";
   public final static String REGION_SAO_PAULO = "br-sao";
   public final static String REGION_MONTREAL = "ca-mon";
+  public final static String REGION_WASHINGTON_DC = "us-east";
 
   public static final String PREFS_NAME = "com.ibm.cloud.eventnotifications.destination.android";
   static final String PREFS_NOTIFICATION_MSG = "LatestNotificationMsg";
