@@ -123,6 +123,7 @@ public class ENPushIntentService extends FirebaseMessagingService {
                 Intent intent = new Intent(ENPushUtils.getIntentPrefix(context)
                         + enMessageConstants.getStringForKey(GCM_MESSAGE));
                 intent.putExtra(enMessageConstants.getStringForKey(GCM_EXTRA_MESSAGE), recMessage);
+                intent.setPackage(context.getPackageName());
                 getApplicationContext().sendBroadcast(intent);
             } else {
                 enNotificationBuilder.onUnhandled(context, recMessage, notificationId);
