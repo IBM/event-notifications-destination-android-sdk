@@ -55,6 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import androidx.core.content.ContextCompat;
 
 
 /**
@@ -219,8 +220,16 @@ public class ENPush extends FirebaseMessagingService{
   public void listen(ENPushNotificationListener notificationListener) {
 
     if (!onMessageReceiverRegistered) {
-      appContext.registerReceiver(onMessage, new IntentFilter(
-      ENPushUtils.getIntentPrefix(appContext) + ENPushIntentService.enMessageConstants.getStringForKey(GCM_MESSAGE)));
+      IntentFilter filter = new IntentFilter(
+          ENPushUtils.getIntentPrefix(appContext) + ENPushIntentService.enMessageConstants.getStringForKey(GCM_MESSAGE)
+      );
+      // Enforce intra-app delivery only and comply with Android 13+ export requirements
+      ContextCompat.registerReceiver(
+          appContext,
+          onMessage,
+          filter,
+          ContextCompat.RECEIVER_NOT_EXPORTED
+      );
       onMessageReceiverRegistered = true;
 
       this.notificationListener = notificationListener;
